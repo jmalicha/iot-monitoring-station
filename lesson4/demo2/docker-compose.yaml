@@ -1,0 +1,8 @@
+services:
+  # Name of the container running the Flask application
+  flask-app:
+    # Path to the directory containing the Dockerfile
+    build: ./flask-app
+    ports:
+      # Map port 5000 on the host to port 5000 in the container
+      - 5001:5000

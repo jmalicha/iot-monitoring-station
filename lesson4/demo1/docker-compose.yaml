@@ -1,0 +1,12 @@
+services:
+  # Name of the service (container)
+  mosquitto:
+    # Official Eclipse Mosquitto MQTT broker image
+    image: eclipse-mosquitto:latest
+    ports:
+      # Map port 1883 on the host to port 1883 in the container (default MQTT port)
+      - 1883:1883
+    volumes:
+      # Mount local configuration file (read-only)
+      # This ensures Mosquitto uses your custom configuration file (mosquitto.conf)
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf:ro

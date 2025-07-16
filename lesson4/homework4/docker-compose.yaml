@@ -1,0 +1,32 @@
+services:
+  # Name of the service (container)
+  mosquitto:
+    # Official Eclipse Mosquitto MQTT broker image
+    image: eclipse-mosquitto:latest
+    volumes:
+      # Mount local configuration file (read-only)
+      # This ensures Mosquitto uses your custom configuration file (mosquitto.conf)
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+  
+  # Name of the receiver container
+  receiver:
+    # Build a custom image using receiver/Dockerfile
+    build: ./receiver
+    # Use env variables from .env file (i.e. HOST, PORT, TOPIC)
+    env_file: .env
+    # Manages the container runtime dependecies
+    depends_on:
+      # Do not start the container until the mosquitto broker is initialized
+      - mosquitto
+  
+  # Name of the sender container
+  sender:
+    # Build a custom image using sender/Dockerfile
+    build: ./sender
+    # Use env variables from .env file (i.e. HOST, PORT, TOPIC)
+    env_file: .env
+    # Manages the container runtime dependecies
+    depends_on:
+      # Do not start the container until the mosquitto broker is initialized
+      - mosquitto
+  
