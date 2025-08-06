@@ -1,0 +1,13 @@
+# apiVersion defines the version of the provisioning configuration
+apiVersion: 1
+
+# 'providers' section is where you define the dashboard providers
+providers:
+  - name: 'default'                # The name of the provider, as it will appear in Grafana
+    orgId: 1                        # The ID of the organization to assign the dashboards to (1 is the default organization)
+    folder: ''                       # The folder where the dashboards will be placed within Grafana (empty means 'General' folder)
+    type: file                       # The type of provider; 'file' means dashboards will be loaded from files on disk
+    disableDeletion: false           # If true, Grafana will not allow the deletion of dashboards that are being provisioned
+    updateIntervalSeconds: 10        # How often Grafana checks the directory for updates or new dashboards (in seconds)
+    options:
+      path: /etc/grafana/provisioning/dashboards  # Path where your dashboard JSON files are located (this should match the actual directory)

@@ -1,0 +1,25 @@
+services:
+  influxdb:
+    image: influxdb:1.8
+    ports:
+      - 8086:8086
+    volumes:
+      - ./influxdb/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+      - type: bind
+        source: influxdb/persistent/influxdb
+        target: /var/lib/influxdb
+  
+  grafana:
+    image: grafana/grafana:latest
+    env_file: grafana/grafana.env
+    ports:
+      - 3000:3000
+    volumes:
+      # This directory will store Grafana's database, user settings, and dashboards persistently
+      - type: bind
+        source: ./grafana/persistent
+        target: /var/lib/grafana
+      # This directory will hold configuration files used for automated setup of data sources and dashboards
+      - ./grafana/provisioning/:/etc/grafana/provisioning
+    depends_on:
+      - influxdb
