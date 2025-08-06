@@ -1,0 +1,11 @@
+services:
+  # InfluxDB container configuration
+  influxdb:
+    # Use InfluxDB version 1.8 image
+    image: influxdb:1.8
+    ports:
+      # Map the InfluxDB port 8086 inside the container to port 8086 on the host machine
+      - 8086:8086
+    volumes:
+      # Script used to initialize the `iot_monitoring_station` database during container startup
+      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
