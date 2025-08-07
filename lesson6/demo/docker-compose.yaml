@@ -2,7 +2,7 @@ services:
   influxdb:
     image: influxdb:1.8
     ports:
-      - 8086:8086
+      - 8087:8086
     volumes:
       - ./influxdb/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
       - type: bind
