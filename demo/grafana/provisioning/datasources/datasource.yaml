@@ -1,0 +1,15 @@
+# apiVersion defines the version of the provisioning configuration
+apiVersion: 1
+
+# 'datasources' section is where you define your data sources
+datasources:
+  - name: InfluxDB               # The name of the data source, as it will appear in Grafana
+    type: influxdb                # The type of data source (InfluxDB in this case)
+    access: proxy                 # Access method for the data source (proxy mode means Grafana communicates with InfluxDB through the server)
+    user: root                    # The username for authenticating with InfluxDB (ensure this user exists)
+    url: http://influxdb:8086      # URL to the InfluxDB instance, replace with your actual address if different
+    jsonData:
+      dbName: iot_monitoring_station  # The InfluxDB database to use for this data source
+      httpMode: GET                   # Specifies the HTTP method (GET or POST) for querying InfluxDB
+    secureJsonData:
+      password: root               # The password for the InfluxDB user (it is stored securely in Grafana)
